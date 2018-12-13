@@ -1,0 +1,9 @@
+
+## idea
+.idea
+out
+*.iml
+
+##for gradle
+build
+.gradle
