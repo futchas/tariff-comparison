@@ -43,7 +43,7 @@ cent/kWh = 150 € additional consumption costs)
 - Consumption = 6000 kWh/year => Annual costs = 1400 €/year (800€ + 2000 kWh * 30
 cent/kWh = 600 € additional consumption costs)
 
-##Notes
+## Notes
 Please implement this task in C#, C++ or Java or any other object oriented language.
 If you write tests for your implementation please provide them with your implementation.
 Please develop only the logic described above, and no UI (webpage, etc.). You do not need a data
