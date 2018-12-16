@@ -2,7 +2,11 @@ package com.futchas.tariffcomparison.product;
 
 import com.futchas.tariffcomparison.tariff.Tariff;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,35 +17,23 @@ class ProductBasicTariffTest {
 	void setUp() {
 		product = new ProductBasicTariff();
 	}
-	
-	@Test
-	void calculate3500Consumption() {
-		Tariff tariff = new Tariff(product, 3500);
-		assertThat(tariff.getAnnualCosts()).isEqualTo(830);
+
+	@ParameterizedTest(name = "{index} => consumption={0}, expectedAnnualCosts={1}")
+	@MethodSource("paramProvider")
+	void calculateConsumption(int consumption, int expectedAnnualCosts) {
+		Tariff tariff = new Tariff(product, consumption);
+		assertThat(tariff.getAnnualCosts()).isEqualTo(expectedAnnualCosts);
+	}
+
+	private static Stream<Arguments> paramProvider() {
+		return Stream.of(
+				Arguments.of(3500, 830),
+				Arguments.of(4500, 1050),
+				Arguments.of(6000, 1380),
+				Arguments.of(0, 60),
+				Arguments.of(-1, 60)
+		);
 	}
 	
-	@Test
-	void calculate4500Consumption() {
-		Tariff tariff = new Tariff(product, 4500);
-		assertThat(tariff.getAnnualCosts()).isEqualTo(1050);
-	}
-	
-	@Test
-	void calculate6000Consumption() {
-		Tariff tariff = new Tariff(product, 6000);
-		assertThat(tariff.getAnnualCosts()).isEqualTo(1380);
-	}
-	
-	@Test
-	void calculateZeroConsumption() {
-		Tariff tariff = new Tariff(product, 0);
-		assertThat(tariff.getAnnualCosts()).isEqualTo(60);
-	}
-	
-	@Test
-	void calculateNegativeConsumption() {
-		Tariff tariff = new Tariff(product, -1);
-		assertThat(tariff.getAnnualCosts()).isEqualTo(60);
-	}
-	
+
 }

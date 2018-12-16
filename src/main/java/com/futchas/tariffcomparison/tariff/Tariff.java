@@ -9,7 +9,8 @@ public class Tariff {
 	
 	private String name;
 	private double annualCosts;
-	
+
+	// TODO remove logic from constructor
 	public Tariff(Product product, int consumption) {
 		this.name = product.getName();
 		this.annualCosts = product.calculationModel(consumption);

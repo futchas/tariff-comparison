@@ -19,6 +19,7 @@ public class ProductPackagedTariff implements Product {
 	 */
 	@Override
 	public double calculationModel(int consumption) {
+		//TODO magic numbers
 		double additionalCosts = 0;
 		int additionalConsumption = consumption - 4000;
 		if(additionalConsumption > 0)

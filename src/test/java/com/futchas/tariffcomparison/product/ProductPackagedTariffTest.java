@@ -2,58 +2,41 @@ package com.futchas.tariffcomparison.product;
 
 import com.futchas.tariffcomparison.tariff.Tariff;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ProductPackagedTariffTest {
-	
-	
+
+
 	private Product product;
+
 	@BeforeEach
 	void setUp() {
 		product = new ProductPackagedTariff();
 	}
-	
-	@Test
-	void calculate3500Consumption() {
-		Tariff tariff = new Tariff(product, 3500);
-		assertThat(tariff.getAnnualCosts()).isEqualTo(800);
+
+	@ParameterizedTest(name = "{index} => consumption={0}, expectedAnnualCosts={1}")
+	@MethodSource("paramProvider")
+	void calculateConsumption(int consumption, double expectedAnnualCosts) {
+		Tariff tariff = new Tariff(product, consumption);
+		assertThat(tariff.getAnnualCosts()).isEqualTo(expectedAnnualCosts);
 	}
-	
-	@Test
-	void calculate4000Consumption() {
-		Tariff tariff = new Tariff(product, 4000);
-		assertThat(tariff.getAnnualCosts()).isEqualTo(800);
+
+	private static Stream<Arguments> paramProvider() {
+		return Stream.of(
+				Arguments.of(3500, 800),
+				Arguments.of(4000, 800),
+				Arguments.of(4001, 800.3),
+				Arguments.of(4500, 950),
+				Arguments.of(6000, 1400),
+				Arguments.of(0, 800),
+				Arguments.of(-1, 800)
+		);
 	}
-	
-	@Test
-	void calculate4001Consumption() {
-		Tariff tariff = new Tariff(product, 4001);
-		assertThat(tariff.getAnnualCosts()).isEqualTo(800.3);
-	}
-	
-	@Test
-	void calculate4500Consumption() {
-		Tariff tariff = new Tariff(product, 4500);
-		assertThat(tariff.getAnnualCosts()).isEqualTo(950);
-	}
-	
-	@Test
-	void calculate6000Consumption() {
-		Tariff tariff = new Tariff(product, 6000);
-		assertThat(tariff.getAnnualCosts()).isEqualTo(1400);
-	}
-	
-	@Test
-	void calculateZeroConsumption() {
-		Tariff tariff = new Tariff(product, 0);
-		assertThat(tariff.getAnnualCosts()).isEqualTo(800);
-	}
-	
-	@Test
-	void calculateNegativeConsumption() {
-		Tariff tariff = new Tariff(product, -1);
-		assertThat(tariff.getAnnualCosts()).isEqualTo(800);
-	}
+
 }

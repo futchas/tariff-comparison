@@ -1,7 +1,8 @@
 package com.futchas.tariffcomparison.product;
 
 public class ProductBasicTariff implements Product {
-	
+
+	// TODO returning string constants as inherited properties on class level is one of the very common anti-patterns
 	@Override
 	public String getName() {
 		return "basic electricity tariff";
@@ -18,6 +19,7 @@ public class ProductBasicTariff implements Product {
 	 */
 	@Override
 	public double calculationModel(int consumption) {
+		//TODO magic numbers
 		consumption = consumption > 0 ? consumption : 0;
 		double baseCostsYearly = 60;
 		double consumptionCosts = consumption * 0.22;
