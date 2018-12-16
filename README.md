@@ -3,7 +3,7 @@
 
 ## How to build 
 
-This will create an executable jar in the `build/libs` directory 
+This will create an executable jar in the `build/libs` directory: 
 `./gradlew build`
 
 ## How to run

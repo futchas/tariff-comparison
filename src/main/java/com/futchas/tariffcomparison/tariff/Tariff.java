@@ -12,7 +12,6 @@ public class Tariff {
 	
 	public Tariff(Product product, int consumption) {
 		this.name = product.getName();
-		
 		this.annualCosts = product.calculationModel(consumption);
 	}
 	
