@@ -1,5 +1,18 @@
 # Tariff comparison
 
+
+## How to build 
+
+This will create an executable jar in the `build/libs` directory 
+`./gradlew build`
+
+## How to run
+
+You can run the application by using an existing jar with
+`java -jar tariff-comparison-1.0-SNAPSHOT.jar`
+
+or using gradle with `./gradlew run`
+
 ## Task
 Develop a model to build up the following two products and to compare these products based on
 their annual costs. The comparison should accept the following input parameter:
